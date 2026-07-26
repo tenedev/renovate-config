@@ -115,6 +115,11 @@
       "groupName": "docker",
       "automerge": true,
       "addLabels": ["docker", "{{updateType}}"]
+    },
+    {
+      "description": "Block automerge on any PR tagged",
+      "matchLabels": ["needs changes"],
+      "automerge": false
     }
   ]
 }
