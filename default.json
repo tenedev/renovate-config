@@ -7,7 +7,6 @@
     ":semanticCommits",
     ":dependencyDashboard",
     ":disableRateLimiting",
-    ":preserveSemverRanges",
     "helpers:pinGitHubActionDigests",
     ":configMigration",
     "abandonments:recommended",
@@ -26,6 +25,8 @@
     "group:vitestMonorepo",
     "group:linters"
   ],
+
+  "rangeStrategy": "bump",
 
   "gitIgnoredAuthors": ["66853113+pre-commit-ci[bot]@users.noreply.github.com", "114827586+autofix-ci[bot]@users.noreply.github.com"],
 
