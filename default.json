@@ -47,7 +47,6 @@
 
   "automerge": true,
   "automergeStrategy": "squash",
-  "platformAutomerge": false,
 
   "dependencyDashboardAutoclose": false,
 
