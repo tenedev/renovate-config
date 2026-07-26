@@ -47,6 +47,8 @@
 
   "automerge": true,
   "automergeStrategy": "squash",
+  
+  "stopUpdatingLabel": "hold",
 
   "dependencyDashboardAutoclose": false,
 
@@ -115,11 +117,6 @@
       "groupName": "docker",
       "automerge": true,
       "addLabels": ["docker", "{{updateType}}"]
-    },
-    {
-      "description": "Block automerge on any PR tagged",
-      "matchLabels": ["hold"],
-      "automerge": false
     }
   ]
 }
