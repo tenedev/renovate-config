@@ -117,6 +117,11 @@
       "groupName": "docker",
       "automerge": true,
       "addLabels": ["docker", "{{updateType}}"]
+    },
+    {
+      "description": "Do not update peerDependencies",
+      "matchDepTypes": ["peerDependencies"],
+      "enabled": false
     }
   ]
 }
