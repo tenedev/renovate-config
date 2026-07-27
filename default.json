@@ -119,8 +119,9 @@
       "addLabels": ["docker", "{{updateType}}"]
     },
     {
-      "description": "Do not update peerDependencies",
-      "matchDepTypes": ["peerDependencies"],
+      "description": "Do not update manually managed Node version constraints",
+      "matchDepNames": ["node"],
+      "matchDepTypes": ["peerDependencies", "engines"],
       "enabled": false
     }
   ]
