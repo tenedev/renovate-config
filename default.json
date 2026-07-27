@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "timezone": "Asia/Kolkata",
+  "schedule": [
+    "* 9 * * 1,4"
+  ],
+  "automergeSchedule": [
+    "* 21 * * 1,4"
+  ]
 
   "extends": [
     "config:recommended",
