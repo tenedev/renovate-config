@@ -6,7 +6,7 @@
   ],
   "automergeSchedule": [
     "* 21 * * 1,4"
-  ]
+  ],
 
   "extends": [
     "config:recommended",
