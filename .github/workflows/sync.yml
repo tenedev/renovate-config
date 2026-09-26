@@ -1,6 +1,7 @@
 name: Sync
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -18,29 +19,60 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v7
 
-      - name: Checkout target repository
-        uses: actions/checkout@v7
-        with:
-          repository: usezeryon/renovate-config
-          token: ${{ secrets.ORG_TOKEN }}
-          path: target
-
-      - name: Copy file
+      - name: Sync to organizations
+        env:
+          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
-          cp default.json target/default.json
+          set -e
 
-      - name: Commit changes
-        run: |
-          cd target
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          REPO="renovate-config"
 
-          git add default.json
+          ORGS=(
+            "usezeryon"
+            "usekono"
+            "usezyxo"
+            "tenelabs"
+          )
 
-          if git diff --cached --quiet; then
-            echo "No changes"
-            exit 0
-          fi
+          CURRENT_ORG="${GITHUB_REPOSITORY%%/*}"
 
-          git commit -m "chore: sync default.json"
-          git push
+          for ORG in "${ORGS[@]}"; do
+            if [[ "$ORG" == "$CURRENT_ORG" ]]; then
+              continue
+            fi
+
+            TARGET="${ORG}/${REPO}"
+
+            echo "==> Syncing ${TARGET}"
+
+            if ! gh repo view "$TARGET" >/dev/null 2>&1; then
+              echo "Creating ${TARGET}..."
+
+              gh repo create "$TARGET" \
+                --org "$ORG" \
+                --private
+            fi
+
+            rm -rf target
+            gh repo clone "$TARGET" target
+
+            cp default.json target/default.json
+
+            cd target
+
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            git add default.json
+
+            if git diff --cached --quiet; then
+              echo "No changes"
+            else
+              git commit -m "chore: sync default.json"
+              git push
+            fi
+
+            cd ..
+
+            echo "✓ ${TARGET} synced"
+          done
