@@ -56,7 +56,7 @@ jobs:
               echo "Creating ${TARGET}..."
 
               gh repo create "$TARGET" \
-                --private
+                --public
             fi
 
             rm -rf target
