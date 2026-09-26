@@ -36,6 +36,13 @@ jobs:
 
           CURRENT_ORG="${GITHUB_REPOSITORY%%/*}"
 
+          # Configure Git authentication for pushes
+          git config --global url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
+
+          # Configure commit identity
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           for ORG in "${ORGS[@]}"; do
             if [[ "$ORG" == "$CURRENT_ORG" ]]; then
               continue
@@ -53,14 +60,12 @@ jobs:
             fi
 
             rm -rf target
+
             gh repo clone "$TARGET" target
 
             cp default.json target/default.json
 
             cd target
-
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
             git add default.json
 
