@@ -28,6 +28,7 @@ jobs:
           REPO="renovate-config"
 
           ORGS=(
+            "pegoraio"
             "usezeryon"
             "usekono"
             "usezyxo"
