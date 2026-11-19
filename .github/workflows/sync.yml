@@ -29,8 +29,6 @@ jobs:
 
           ORGS=(
             "pegoraio"
-            "zeryonio"
-            "konoio"
             "tenelabs"
           )
 
