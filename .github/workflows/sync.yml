@@ -5,20 +5,16 @@ on:
   push:
     branches:
       - main
-    paths:
-      - default.json
 
 permissions:
   contents: read
 
 jobs:
   sync:
+    if: github.repository == 'tenedev/renovate-config'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v7
-
+      - uses: actions/checkout@v7
       - name: Sync to organizations
         env:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
